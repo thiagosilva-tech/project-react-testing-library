@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
 
-describe('Teste se a página contém as informações sobre a Pokédex.', () => {
+describe('Teste o componente <About.tsx />.', () => {
   test('Teste se a página contém um heading h2 com o texto About Pokédex.', () => {
     renderWithRouter(<App />, { route: '/about' });
 
