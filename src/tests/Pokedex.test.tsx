@@ -1,8 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
-import { Button } from '../components';
 
 describe('Teste o componente <Pokedex.tsx />', () => {
   const POKEMON_TYPE = 'pokemon-type';
@@ -71,12 +70,12 @@ describe('Teste o componente <Pokedex.tsx />', () => {
 
     const btnAll = screen.getByRole('button', { name: /All/i });
     const btnNext = screen.getByRole('button', { name: /Próximo Pokémon/i });
-
+    const btnFire = screen.getByRole('button', { name: 'Fire' });
     expect(btnAll.getAttribute('data-testid')).not.toBe('pokemon-type-button');
     expect(btnAll.textContent).toBe('All');
 
+    await user.click(btnFire);
     await user.click(btnAll);
-
     const type1 = screen.getByTestId(POKEMON_TYPE);
     expect(type1.textContent).toBe('Electric');
 
