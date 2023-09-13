@@ -1,6 +1,8 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
+import { Button } from '../components';
 
 describe('Teste o componente <Pokedex.tsx />', () => {
   const POKEMON_TYPE = 'pokemon-type';
@@ -56,9 +58,11 @@ describe('Teste o componente <Pokedex.tsx />', () => {
     const pokemonWithFilter = screen.getByTestId('pokemon-type');
     expect(pokemonWithFilter.textContent).toBe(allBtnFilter[2].textContent);
 
+    const btnAll = screen.getByRole('button', { name: /All/i });
     for (let index = 0; index < allBtnFilter.length; index += 1) {
       expect(allBtnFilter[index].getAttribute('data-testid')).toBe(DATA_TESTID);
       expect(allBtnFilter[index].textContent).toBe(typeFilter[index]);
+      expect(btnAll).toBeInTheDocument();
     }
   });
 
