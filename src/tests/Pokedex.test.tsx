@@ -50,27 +50,31 @@ describe('Teste o componente <Pokedex.tsx />', () => {
     const DATA_TESTID = 'pokemon-type-button';
     const allBtnFilter = screen.getAllByTestId(DATA_TESTID);
 
+    const typeFilter = ['Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
     expect(allBtnFilter).toHaveLength(7);
     await user.click(allBtnFilter[2]);
     const pokemonWithFilter = screen.getByTestId('pokemon-type');
     expect(pokemonWithFilter.textContent).toBe(allBtnFilter[2].textContent);
+
     for (let index = 0; index < allBtnFilter.length; index += 1) {
       expect(allBtnFilter[index].getAttribute('data-testid')).toBe(DATA_TESTID);
+      expect(allBtnFilter[index].textContent).toBe(typeFilter[index]);
     }
   });
 
   test('Teste se a Pokédex contém um botão para resetar o filtro:', async () => {
     const { user } = renderWithRouter(<App />);
 
-    const btnAll = screen.getByRole('button', { name: /all/i });
+    const btnAll = screen.getByRole('button', { name: /All/i });
+    const btnNext = screen.getByRole('button', { name: /Próximo Pokémon/i });
 
     expect(btnAll.getAttribute('data-testid')).not.toBe('pokemon-type-button');
     expect(btnAll.textContent).toBe('All');
 
+    await user.click(btnAll);
+
     const type1 = screen.getByTestId(POKEMON_TYPE);
     expect(type1.textContent).toBe('Electric');
-
-    const btnNext = screen.getByRole('button', { name: /Próximo Pokémon/i });
 
     await user.click(btnNext);
 
